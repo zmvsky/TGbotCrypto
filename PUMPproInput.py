@@ -119,15 +119,13 @@ def run():
                 continue
             cur_time = datetime.now().timestamp()
             signals_count = 0
-            if cur_time_for_report + (REPORT_INTERVAL * 60 * 1000) < cur_time:
+            if cur_time_for_report + (REPORT_INTERVAL * 60) < cur_time:
                 msg_report = f"За последние {REPORT_INTERVAL} минут: БЫЧЬИХ сигналов {signals_bull_count} | МЕДВЕЖЬИХ мигналов {signals_bear_count}"
                 send_message(msg_report)
                 logger.info(f"Отчет: {msg_report}")
                 signals_bear_count = 0
                 signals_bull_count = 0
-                cur_time_for_report = cur_time_for_report + (
-                    REPORT_INTERVAL * 60 * 1000
-                )
+                cur_time_for_report = cur_time_for_report + (REPORT_INTERVAL * 60)
             for symbol in all_symbols:
                 cur_price = check_signal_by_symbol(symbol)
                 if cur_price is None:
